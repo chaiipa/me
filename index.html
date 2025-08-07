@@ -2,108 +2,145 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Моё портфолио</title>
+  <title>Nikoflx Portfolio</title>
   <style>
-    /* Анимированный градиентный фон */
     body {
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(-45deg, #ff6b6b, #f7d794, #48dbfb, #1dd1a1);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
-      text-align: center;
       overflow: hidden;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
       user-select: none;
+      height: 100vh;
+    }
+
+    .center-text {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      opacity: 0.7;
+    }
+
+    #password-area {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+
+    #password-input {
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    #unlock-button {
+      padding: 8px 12px;
+      margin-left: 6px;
+      border-radius: 8px;
+      border: none;
       cursor: pointer;
-      position: relative;
     }
-    
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+
+    #mute-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: none;
+      cursor: pointer;
     }
-    
-    /* Текст */
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5em;
-      text-shadow: 0 0 10px rgba(255,255,255,0.7);
+
+    #secret-content {
+      display: none;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5em;
     }
-    
-    p {
-      font-size: 1.5rem;
-      text-shadow: 0 0 6px rgba(0,0,0,0.4);
-    }
-    
-    .fade-in {
-      animation: fadeIn 2s ease forwards;
-      opacity: 0;
-    }
-    
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-    
-    /* Всплеск */
+
     .ripple {
       position: absolute;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
-      animation: ripple-effect 0.6s ease-out;
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(0);
+      animation: ripple-effect 0.6s linear;
       pointer-events: none;
-      transform: translate(-50%, -50%);
-      width: 100px;
-      height: 100px;
-      opacity: 0.8;
-      z-index: 1000;
     }
-    
+
     @keyframes ripple-effect {
-      0% {
-        transform: translate(-50%, -50%) scale(0.1);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(2.5);
+      to {
+        transform: scale(10);
         opacity: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="fade-in">
-    <h1>Hello, I'm Chaipa!</h1>
-    <p>This webiste is still building! Happy 2018!</p>
+  <div class="center-text">Hello! I'm Chaipa</div>
+
+  <div id="password-area">
+    <input type="password" id="password-input" placeholder="Enter password">
+    <button id="unlock-button">Unlock</button>
   </div>
 
+  <button id="mute-button">🔊</button>
+
+  <div id="secret-content">
+    <p>Welcome to my page:</p>
+    <a href="https://t.me/nikoflx" style="color:lightblue;">My Discord</a><br>
+    <a href="https://github.com/nikoflx" style="color:lightgreen;">My favorite music</a><br>
+    <a href="#" style="color:orange;">The website is coming soon! Still building.</a>
+  </div>
+
+  <audio id="click-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_bf7b2c1665.mp3" preload="auto"></audio>
+
   <script>
-    // Звук клика
-    const clickSound = new Audio('https://freesound.org/data/previews/256/256113_3263906-lq.mp3');
-    
-    document.body.addEventListener('click', (e) => {
-      // Создаём всплеск
-      const ripple = document.createElement('span');
-      ripple.classList.add('ripple');
-      ripple.style.left = e.clientX + 'px';
-      ripple.style.top = e.clientY + 'px';
+    const password = "8896";
+    const unlockBtn = document.getElementById("unlock-button");
+    const input = document.getElementById("password-input");
+    const content = document.getElementById("secret-content");
+    const clickSound = document.getElementById("click-sound");
+    const muteBtn = document.getElementById("mute-button");
+
+    let isMuted = false;
+
+    unlockBtn.addEventListener("click", () => {
+      if (input.value === password) {
+        content.style.display = "block";
+        input.value = "";
+      } else {
+        alert("Неправильный пароль!");
+      }
+    });
+
+    muteBtn.addEventListener("click", () => {
+      isMuted = !isMuted;
+      muteBtn.textContent = isMuted ? "🔇" : "🔊";
+    });
+
+    document.addEventListener("click", function(e) {
+      if (!isMuted) {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      }
+
+      const ripple = document.createElement("div");
+      ripple.className = "ripple";
+      ripple.style.left = `${e.clientX}px`;
+      ripple.style.top = `${e.clientY}px`;
       document.body.appendChild(ripple);
-      
-      setTimeout(() => {
+
+      ripple.addEventListener("animationend", () => {
         ripple.remove();
-      }, 600);
-      
-      // Проигрываем звук клика
-      clickSound.currentTime = 0;
-      clickSound.play();
+      });
     });
   </script>
 </body>
 </html>
+
