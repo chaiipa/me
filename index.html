@@ -12,6 +12,7 @@
       background: radial-gradient(circle at center, #1a1a2e, #16213e);
       color: white;
       height: 100vh;
+      position: relative;
     }
 
     .center-text {
@@ -21,6 +22,7 @@
       text-align: center;
       font-size: 2.5em;
       opacity: 0.8;
+      user-select: none;
     }
 
     #password-area {
@@ -29,13 +31,14 @@
       right: 20px;
       display: flex;
       gap: 8px;
-      z-index: 2;
+      z-index: 10;
     }
 
     #password-input {
       padding: 8px;
       border-radius: 8px;
       border: none;
+      font-size: 1em;
     }
 
     #unlock-button {
@@ -45,6 +48,7 @@
       cursor: pointer;
       background: #0f3460;
       color: white;
+      font-size: 1em;
     }
 
     #mute-button {
@@ -57,7 +61,9 @@
       color: white;
       border: none;
       cursor: pointer;
-      z-index: 2;
+      z-index: 10;
+      font-size: 1.2em;
+      user-select: none;
     }
 
     .ripple {
@@ -83,6 +89,7 @@
       width: 100%;
       text-align: center;
       padding: 20px;
+      z-index: 5;
     }
 
     .section {
@@ -92,6 +99,7 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      user-select: none;
     }
 
     .section h2 {
@@ -102,42 +110,114 @@
       color: #4dd4ff;
       text-decoration: none;
     }
+
+    #moon {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, #fff, #ccc);
+      border-radius: 50%;
+      z-index: 10;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      user-select: none;
+    }
+
+    .raindrop {
+      position: fixed;
+      width: 2px;
+      height: 20px;
+      background: rgba(255,255,255,0.3);
+      animation: fall 1s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-20px); opacity: 0; }
+      100% { transform: translateY(100vh); opacity: 1; }
+    }
+
+    /* Стиль для светлячков (живых) */
+    .firefly {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, #ffffa0 0%, #fffa70 40%, transparent 80%);
+      border-radius: 50%;
+      filter: drop-shadow(0 0 5px #ffffa0);
+      animation: flyaround 6s linear infinite, glow 2s ease-in-out infinite alternate;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes glow {
+      0% { opacity: 0.3; filter: drop-shadow(0 0 2px #ffffa0); }
+      100% { opacity: 1; filter: drop-shadow(0 0 8px #ffffa0); }
+    }
+
+    @keyframes flyaround {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(20px, -10px); }
+      50% { transform: translate(40px, 15px); }
+      75% { transform: translate(20px, 30px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* Частицы за мышкой */
+    .mouse-particle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffffcc 0%, #ffcc00 70%, transparent 100%);
+      border-radius: 50%;
+      pointer-events: none;
+      user-select: none;
+      opacity: 1;
+      animation: fallParticle 2s forwards;
+      filter: drop-shadow(0 0 4px #ffcc00);
+      mix-blend-mode: screen;
+    }
+
+    @keyframes fallParticle {
+      to {
+        transform: translateY(60px) translateX(20px);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+  <div id="moon" title="Три клика — смена темы"></div>
   <div class="center-text" id="welcome-text">Привет! Я Nikoflx</div>
 
   <div id="password-area">
-    <input type="password" id="password-input" placeholder="Введите пароль">
+    <input type="password" id="password-input" placeholder="Введите пароль" autocomplete="off" />
     <button id="unlock-button">Unlock</button>
   </div>
 
-  <button id="mute-button">🔊</button>
+  <button id="mute-button" title="Вкл/выкл звук">🔊</button>
 
-  <div id="main-content">
+  <div id="main-content" aria-live="polite" role="main">
     <div class="section">
       <h2>Добро пожаловать на мой сайт!</h2>
       <p>Ты разблокировал секретный контент 🎉</p>
     </div>
 
     <div class="section">
-      <h2>🎮 Игры, которые я люблю</h2>
-      <ul>
-        <li>Minecraft</li>
-        <li>Roblox</li>
-        <li>OneShot</li>
-        <li>Celeste</li>
-      </ul>
+      <h2>🎵 Моя любимая музыка</h2>
+      <p><a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer">Мой Spotify плейлист</a></p>
     </div>
 
     <div class="section">
-      <h2>🎵 Моя любимая музыка</h2>
-      <p><a href="https://open.spotify.com" target="_blank">Мой Spotify плейлист</a></p>
+      <h2>🎮 Игры, которые я люблю</h2>
+      <p>Minecraft, Roblox, Celeste, OneShot, Terraria...</p>
     </div>
 
     <div class="section">
       <h2>📱 Контакты</h2>
-      <p><a href="https://t.me/nikoflx">Telegram</a></p>
+      <p><a href="https://t.me/nikoflx" target="_blank" rel="noopener noreferrer">Telegram</a></p>
       <p><a href="mailto:nikoflx@email.com">Email</a></p>
     </div>
 
@@ -158,9 +238,74 @@
     const welcomeText = document.getElementById("welcome-text");
     const clickSound = document.getElementById("click-sound");
     const muteBtn = document.getElementById("mute-button");
-
+    const moon = document.getElementById("moon");
     let isMuted = false;
+    let clickCount = 0;
+    let isDay = false;
+    let rainInterval;
 
+    // Создаёт капли дождя
+    function createRain() {
+      for (let i = 0; i < 50; i++) {
+        const drop = document.createElement("div");
+        drop.className = "raindrop";
+        drop.style.left = Math.random() * 100 + "vw";
+        drop.style.animationDuration = (0.5 + Math.random()) + "s";
+        document.body.appendChild(drop);
+        setTimeout(() => drop.remove(), 2000);
+      }
+    }
+
+    // Добавляет светлячков ночью
+    function addFireflies() {
+      for (let i = 0; i < 20; i++) {
+        const firefly = document.createElement("div");
+        firefly.className = "firefly";
+        firefly.style.top = Math.random() * 80 + "vh";
+        firefly.style.left = Math.random() * 100 + "vw";
+        firefly.style.animationDuration = (4 + Math.random() * 4) + "s"; // разная длительность анимации
+        firefly.style.animationDelay = (Math.random() * 4) + "s"; // случайная задержка
+        document.body.appendChild(firefly);
+      }
+    }
+
+    // Удаляет все светлячки
+    function removeFireflies() {
+      document.querySelectorAll(".firefly").forEach(f => f.remove());
+    }
+
+    // Удаляет все капли дождя
+    function removeRain() {
+      document.querySelectorAll(".raindrop").forEach(d => d.remove());
+      clearInterval(rainInterval);
+    }
+
+    // Запускает дождь
+    function startRain() {
+      rainInterval = setInterval(createRain, 400);
+    }
+
+    // Переключение день/ночь по кликам на луну
+    moon.addEventListener("click", () => {
+      clickCount++;
+      if (clickCount >= 3) {
+        isDay = !isDay;
+        if (isDay) {
+          // День: светлый фон, убираем дождь и светлячков
+          document.body.style.background = "linear-gradient(to top, #ffecd2 0%, #fcb69f 100%)";
+          removeRain();
+          removeFireflies();
+        } else {
+          // Ночь: темный фон, запускаем дождь и светлячков
+          document.body.style.background = "radial-gradient(circle at center, #1a1a2e, #16213e)";
+          startRain();
+          addFireflies();
+        }
+        clickCount = 0;
+      }
+    });
+
+    // Разблокировка сайта по паролю
     unlockBtn.addEventListener("click", () => {
       if (input.value === password) {
         content.style.display = "block";
@@ -172,26 +317,44 @@
       }
     });
 
+    // Переключатель звука клика
     muteBtn.addEventListener("click", () => {
       isMuted = !isMuted;
       muteBtn.textContent = isMuted ? "🔇" : "🔊";
     });
 
-    document.addEventListener("click", function(e) {
-      if (!isMuted) {
-        clickSound.currentTime = 0;
-        clickSound.play();
+    // Эффект клика: звук и всплеск, срабатывает только если клик на body (чтобы не мешать кнопкам)
+    document.body.addEventListener("click", function(e) {
+      if (e.target === document.body) {
+        if (!isMuted) {
+          clickSound.currentTime = 0;
+          clickSound.play().catch(() => {});
+        }
+        const ripple = document.createElement("div");
+        ripple.className = "ripple";
+        ripple.style.left = `${e.clientX}px`;
+        ripple.style.top = `${e.clientY}px`;
+        document.body.appendChild(ripple);
+        ripple.addEventListener("animationend", () => ripple.remove());
       }
+    });
 
-      const ripple = document.createElement("div");
-      ripple.className = "ripple";
-      ripple.style.left = `${e.clientX}px`;
-      ripple.style.top = `${e.clientY}px`;
-      document.body.appendChild(ripple);
+    // Частицы за мышкой (живые пиксели)
+    document.addEventListener("mousemove", (e) => {
+      const particle = document.createElement("div");
+      particle.className = "mouse-particle";
+      particle.style.left = (e.clientX + (Math.random() * 10 - 5)) + "px";
+      particle.style.top = (e.clientY + (Math.random() * 10 - 5)) + "px";
+      document.body.appendChild(particle);
+      // Удаляем частицу через 2 секунды (длина анимации)
+      setTimeout(() => particle.remove(), 2000);
+    });
 
-      ripple.addEventListener("animationend", () => {
-        ripple.remove();
-      });
+    // При загрузке страницы устанавливаем ночь (по умолчанию) и запускаем дождь и светлячков
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.style.background = "radial-gradient(circle at center, #1a1a2e, #16213e)";
+      startRain();
+      addFireflies();
     });
   </script>
 </body>
