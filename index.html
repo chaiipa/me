@@ -2,29 +2,57 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Сайт с эффектом клика</title>
+  <title>Моё портфолио</title>
   <style>
+    /* Анимированный градиентный фон */
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background: linear-gradient(-45deg, #ff6b6b, #f7d794, #48dbfb, #1dd1a1);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
+      text-align: center;
       overflow: hidden;
       user-select: none;
       cursor: pointer;
+      position: relative;
     }
-
+    
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    
+    /* Текст */
     h1 {
       font-size: 3rem;
-      text-align: center;
-      text-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-bottom: 0.5em;
+      text-shadow: 0 0 10px rgba(255,255,255,0.7);
     }
-
-    /* Эффект всплеска */
+    
+    p {
+      font-size: 1.5rem;
+      text-shadow: 0 0 6px rgba(0,0,0,0.4);
+    }
+    
+    .fade-in {
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* Всплеск */
     .ripple {
       position: absolute;
       border-radius: 50%;
@@ -35,8 +63,9 @@
       width: 100px;
       height: 100px;
       opacity: 0.8;
+      z-index: 1000;
     }
-
+    
     @keyframes ripple-effect {
       0% {
         transform: translate(-50%, -50%) scale(0.1);
@@ -50,27 +79,28 @@
   </style>
 </head>
 <body>
-  <h1>Нажми куда угодно! 💥</h1>
+  <div class="fade-in">
+    <h1>Hello, I'm Chaipa!</h1>
+    <p>This webiste is still building! Happy 2018!</p>
+  </div>
 
   <script>
-    // Звуковой эффект клика (простой клик звук)
+    // Звук клика
     const clickSound = new Audio('https://freesound.org/data/previews/256/256113_3263906-lq.mp3');
-
+    
     document.body.addEventListener('click', (e) => {
       // Создаём всплеск
       const ripple = document.createElement('span');
       ripple.classList.add('ripple');
       ripple.style.left = e.clientX + 'px';
       ripple.style.top = e.clientY + 'px';
-
       document.body.appendChild(ripple);
-
-      // Удаляем всплеск через 600мс (длина анимации)
+      
       setTimeout(() => {
         ripple.remove();
       }, 600);
-
-      // Воспроизводим звук клика
+      
+      // Проигрываем звук клика
       clickSound.currentTime = 0;
       clickSound.play();
     });
