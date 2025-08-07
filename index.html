@@ -1,11 +1,60 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>chaipa</title>
-  </head>
-  <body>
-    <h1>Hi!</h1>
-    <p>Welcome to my website.</p>
-  </body>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Моё портфолио</title>
+  <style>
+    /* Фон с анимацией */
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(-45deg, #ff6b6b, #f7d794, #48dbfb, #1dd1a1);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+    
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    
+    /* Текст на сайте */
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+      text-shadow: 0 0 10px rgba(255,255,255,0.7);
+    }
+    
+    p {
+      font-size: 1.5rem;
+      text-shadow: 0 0 6px rgba(0,0,0,0.4);
+    }
+    
+    /* Лёгкая анимация появления */
+    .fade-in {
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="fade-in">
+    <h1>Привет! Я Никофлх</h1>
+    <p>Это моё портфолио с анимацией и классным фоном.</p>
+  </div>
+</body>
 </html>
