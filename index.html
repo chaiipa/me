@@ -2,59 +2,78 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Моё портфолио</title>
+  <title>Сайт с эффектом клика</title>
   <style>
-    /* Фон с анимацией */
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(-45deg, #ff6b6b, #f7d794, #48dbfb, #1dd1a1);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       color: white;
-      text-align: center;
       overflow: hidden;
+      user-select: none;
+      cursor: pointer;
     }
-    
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-    
-    /* Текст на сайте */
+
     h1 {
       font-size: 3rem;
-      margin-bottom: 0.5em;
-      text-shadow: 0 0 10px rgba(255,255,255,0.7);
+      text-align: center;
+      text-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-    
-    p {
-      font-size: 1.5rem;
-      text-shadow: 0 0 6px rgba(0,0,0,0.4);
+
+    /* Эффект всплеска */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      animation: ripple-effect 0.6s ease-out;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      opacity: 0.8;
     }
-    
-    /* Лёгкая анимация появления */
-    .fade-in {
-      animation: fadeIn 2s ease forwards;
-      opacity: 0;
-    }
-    
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
+
+    @keyframes ripple-effect {
+      0% {
+        transform: translate(-50%, -50%) scale(0.1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="fade-in">
-    <h1>Hello! I'm Chaipa</h1>
-    <p>This Website is still building.</p>
-  </div>
+  <h1>Нажми куда угодно! 💥</h1>
+
+  <script>
+    // Звуковой эффект клика (простой клик звук)
+    const clickSound = new Audio('https://freesound.org/data/previews/256/256113_3263906-lq.mp3');
+
+    document.body.addEventListener('click', (e) => {
+      // Создаём всплеск
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple');
+      ripple.style.left = e.clientX + 'px';
+      ripple.style.top = e.clientY + 'px';
+
+      document.body.appendChild(ripple);
+
+      // Удаляем всплеск через 600мс (длина анимации)
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+
+      // Воспроизводим звук клика
+      clickSound.currentTime = 0;
+      clickSound.play();
+    });
+  </script>
 </body>
 </html>
