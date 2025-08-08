@@ -1,3 +1,45 @@
+<!-- Device Selection Modal -->
+<div id="device-modal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.9); color: white; display: flex; align-items: center; justify-content: center; z-index: 10001; font-family: 'Segoe UI', sans-serif;">
+  <div style="background: #1a1a1a; padding: 40px; border-radius: 25px; text-align: center; box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); animation: fadeIn 0.4s ease-out; max-width: 90%; width: 320px;">
+    <h2 style="margin-bottom: 10px; font-size: 24px;">Choose your device</h2>
+    <p style="margin-bottom: 25px; font-size: 14px; color: #ccc;">Choose your device for better experience :)</p>
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+      <button onclick="selectDevice('pc')" style="padding: 12px; font-size: 16px; border: 2px solid white; border-radius: 12px; background: transparent; color: white; cursor: pointer; transition: all 0.3s ease;">
+        🖥️ PC
+      </button>
+      <button onclick="selectDevice('mobile')" style="padding: 12px; font-size: 16px; border: 2px solid white; border-radius: 12px; background: transparent; color: white; cursor: pointer; transition: all 0.3s ease;">
+        📱 Phone / Tablet
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+</style>
+
+<script>
+  function selectDevice(device) {
+    const modal = document.getElementById("device-modal");
+    modal.style.display = "none";
+
+    if (device === 'mobile') {
+      document.body.style.cursor = 'none';
+      const cursorDot = document.getElementById('cursorDot');
+      if (cursorDot) cursorDot.style.display = 'none';
+    } else {
+      document.body.style.cursor = 'default';
+      const cursorDot = document.getElementById('cursorDot');
+      if (cursorDot) cursorDot.style.display = 'block';
+    }
+  }
+</script>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
