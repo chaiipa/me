@@ -1,53 +1,18 @@
-<!-- Device Selection Modal -->
-<div id="device-modal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.9); color: white; display: flex; align-items: center; justify-content: center; z-index: 10001; font-family: 'Segoe UI', sans-serif;">
-  <div style="background: #1a1a1a; padding: 40px; border-radius: 25px; text-align: center; box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); animation: fadeIn 0.4s ease-out; max-width: 90%; width: 320px;">
-    <h2 style="margin-bottom: 10px; font-size: 24px;">Choose your device</h2>
-    <p style="margin-bottom: 25px; font-size: 14px; color: #ccc;">Choose your device for better experience :)</p>
-    <div style="display: flex; flex-direction: column; gap: 15px;">
-      <button onclick="selectDevice('pc')" style="padding: 12px; font-size: 16px; border: 2px solid white; border-radius: 12px; background: transparent; color: white; cursor: pointer; transition: all 0.3s ease;">
-        🖥️ PC
-      </button>
-      <button onclick="selectDevice('mobile')" style="padding: 12px; font-size: 16px; border: 2px solid white; border-radius: 12px; background: transparent; color: white; cursor: pointer; transition: all 0.3s ease;">
-        📱 Phone / Tablet
-      </button>
-    </div>
-  </div>
-</div>
-
-<style>
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  button:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-</style>
-
-<script>
-  function selectDevice(device) {
-    const modal = document.getElementById("device-modal");
-    modal.style.display = "none";
-
-    const cursorDot = document.getElementById('cursorDot');
-
-    if (device === 'mobile') {
-      document.body.style.cursor = 'none';
-      if (cursorDot) cursorDot.style.display = 'none';
-    } else if (device === 'pc') {
-      document.body.style.cursor = 'none'; // курсор становится невидимым
-      if (cursorDot) cursorDot.style.display = 'block';
-    }
-  }
-</script>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <title>Chaipa About Me</title>
   <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
     body {
-      cursor: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -57,6 +22,7 @@
       height: 100vh;
       position: relative;
       transition: background 0.8s ease;
+      cursor: default; /* Обычный курсор по умолчанию */
     }
 
     .center-text {
@@ -223,6 +189,7 @@
       box-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
       transform: translate(-50%, -50%);
       mix-blend-mode: screen;
+      display: none; /* Скрыт изначально */
     }
     @keyframes gradientShift {
       0% {background-position: 0% 50%;}
@@ -267,203 +234,260 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    /* Device selection modal */
+    #device-modal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10001;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    #device-modal > div {
+      background: #1a1a1a;
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+      animation: fadeIn 0.4s ease-out;
+      max-width: 90%;
+      width: 320px;
+    }
+    #device-modal button {
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid white;
+      border-radius: 12px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px 0;
+      width: 100%;
+    }
+    #device-modal button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Warning modal */
+    #warning-modal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10002;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    #warning-modal > div {
+      background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+      border: 2px solid #ffcc00;
+      padding: 35px 30px;
+      border-radius: 18px;
+      box-shadow: 0 0 30px rgba(255, 204, 0, 0.4);
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      color: white;
+      animation: alertPop 0.4s ease;
+    }
+    #warning-modal button {
+      padding: 12px 26px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 10px;
+      color: black;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+      margin-top: 20px;
+    }
+    #warning-modal button:hover {
+      background: #ffe680;
+      box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+    }
+    #warning-modal div small {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #bbb;
+    }
+
+    @keyframes alertPop {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 <body>
-  <div id="moon" title="Наведи мышку сюда, чтобы переключить день/ночь"></div>
 
-  <div id="controls">
-    <button id="mute-button" class="control-btn" title="Вкл/Выкл звук">🔊</button>
-    <button id="rain-toggle" class="control-btn" title="Вкл/Выкл дождь">🌧️</button>
-    <button id="music-toggle" class="control-btn" title="Вкл/Выкл Lo-Fi музыку">🎵</button>
+<!-- Device Selection Modal -->
+<div id="device-modal">
+  <div>
+    <h2>Choose your device</h2>
+    <p>Choose your device for better experience :)</p>
+    <button onclick="selectDevice('pc')">🖥️ PC</button>
+    <button onclick="selectDevice('mobile')">📱 Phone / Tablet</button>
+  </div>
+</div>
+
+<!-- Warning Modal -->
+<div id="warning-modal">
+  <div>
+    <div style="font-size: 30px; font-weight: bold; margin-bottom: 12px; color: #ffcc00; text-shadow: 0 0 5px #ffcc00;">
+      ⚠️ Attention Required
+    </div>
+    <p style="font-size: 16px; color: #eee; margin-bottom: 30px; line-height: 1.5;">
+      This website is <span style="color: #ffcc00;">still under construction</span>. Some features may not work as expected.
+    </p>
+    <button id="ok-button" onclick="closeWarning()">OK</button>
+    <small>Press <b>Enter</b> on PC</small>
+  </div>
+</div>
+
+<div id="moon" title="Наведи мышку сюда, чтобы переключить день/ночь"></div>
+
+<div id="controls">
+  <button id="mute-button" class="control-btn" title="Вкл/Выкл звук">🔊</button>
+  <button id="rain-toggle" class="control-btn" title="Вкл/Выкл дождь">🌧️</button>
+  <button id="music-toggle" class="control-btn" title="Вкл/Выкл Lo-Fi музыку">🎵</button>
+</div>
+
+<div class="center-text" id="welcome-text">Hello! Im Chaipa :)</div>
+
+<div id="password-area">
+  <input type="password" id="password-input" placeholder="Enter password for early accesss." />
+  <button id="unlock-button">Unlock</button>
+</div>
+
+<div id="main-content">
+  <div class="section">
+    <h2>Welcome to my Website</h2>
+    <p>You've unlocked early access.</p>
   </div>
 
-  <div class="center-text" id="welcome-text">Hello! Im Chaipa :)</div>
-
-  <div id="password-area">
-    <input type="password" id="password-input" placeholder="Enter password for early accesss." />
-    <button id="unlock-button">Unlock</button>
+  <div class="section">
+    <h2>🎵My Favorite Music</h2>
+    <p><a href="https://open.spotify.com" target="_blank">My Spotify Playilsit</a></p>
   </div>
 
-  <div id="main-content">
-    <div class="section">
-      <h2>Welcome to my Website</h2>
-      <p>You've unlocked early access.</p>
-    </div>
-
-    <div class="section">
-      <h2>🎵My Favorite Music</h2>
-      <p><a href="https://open.spotify.com" target="_blank">My Spotify Playilsit</a></p>
-    </div>
-
-    <div class="section">
-      <h2>🎮 My favorite games:</h2>
-      <p>Minecrafr, Roblox, Brawl Stars, Oneshot, Among Us </p>
-    </div>
-
-    <div class="section">
-      <h2>📱 Text Me!</h2>
-      <p><a href="https://t.me/lololowka_11">Telegram</a></p>
-      <p><a href="mailto:nikoflx.music@gmail.com">Email</a></p>
-    </div>
-
-    <div class="section">
-      <h2>🥳 Soon</h2>
-      <p>Nothing yet!</p>
-    </div>
+  <div class="section">
+    <h2>🎮 My favorite games:</h2>
+    <p>Minecrafr, Roblox, Brawl Stars, Oneshot, Among Us </p>
   </div>
 
-  <!-- Аудио для кликов -->
-  <audio id="click-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_bf7b2c1665.mp3" preload="auto"></audio>
-  <!-- Lo-fi музыка -->
-  <audio id="lofi-audio" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2021/09/23/audio_62440d4209.mp3?filename=lofi-hip-hop-beat-140bpm-8826.mp3"></audio>
+  <div class="section">
+    <h2>📱 Text Me!</h2>
+    <p><a href="https://t.me/lololowka_11">Telegram</a></p>
+    <p><a href="mailto:nikoflx.music@gmail.com">Email</a></p>
+  </div>
 
-  <!-- Кастомный курсор -->
-  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="section">
+    <h2>🥳 Soon</h2>
+    <p>Nothing yet!</p>
+  </div>
+</div>
 
-  <!-- Уведомление cooldown и разблокировки -->
-  <div id="cooldown-msg"></div>
+<!-- Аудио для кликов -->
+<audio id="click-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_bf7b2c1665.mp3" preload="auto"></audio>
+<!-- Lo-fi музыка -->
+<audio id="lofi-audio" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2021/09/23/audio_62440d4209.mp3?filename=lofi-hip-hop-beat-140bpm-8826.mp3"></audio>
 
-  <script>
-    const password = "8896";
-    const unlockBtn = document.getElementById("unlock-button");
-    const input = document.getElementById("password-input");
-    const content = document.getElementById("main-content");
-    const passwordArea = document.getElementById("password-area");
-    const welcomeText = document.getElementById("welcome-text");
-    const clickSound = document.getElementById("click-sound");
-    const muteBtn = document.getElementById("mute-button");
-    const moon = document.getElementById("moon");
-    const cursorDot = document.getElementById("cursorDot");
-    const rainToggle = document.getElementById("rain-toggle");
-    const musicToggle = document.getElementById("music-toggle");
-    const lofiAudio = document.getElementById("lofi-audio");
-    const cooldownMsg = document.getElementById("cooldown-msg");
+<!-- Кастомный курсор -->
+<div class="cursor-dot" id="cursorDot"></div>
 
-    let isMuted = false;
-    let isDay = false;
-    let rainActive = true; // дождь включен ночью по умолчанию
-    let musicActive = false; // ло-фи музыка изначально выключена
+<!-- Уведомление cooldown и разблокировки -->
+<div id="cooldown-msg"></div>
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let dotX = mouseX;
-    let dotY = mouseY;
+<script>
+  const password = "8896";
+  const unlockBtn = document.getElementById("unlock-button");
+  const input = document.getElementById("password-input");
+  const content = document.getElementById("main-content");
+  const passwordArea = document.getElementById("password-area");
+  const welcomeText = document.getElementById("welcome-text");
+  const clickSound = document.getElementById("click-sound");
+  const muteBtn = document.getElementById("mute-button");
+  const moon = document.getElementById("moon");
+  const cursorDot = document.getElementById("cursorDot");
+  const rainToggle = document.getElementById("rain-toggle");
+  const musicToggle = document.getElementById("music-toggle");
+  const lofiAudio = document.getElementById("lofi-audio");
+  const cooldownMsg = document.getElementById("cooldown-msg");
 
-    let lastThemeChange = 0; // время последнего переключения темы
+  let isMuted = false;
+  let isDay = false;
+  let rainActive = true;
+  let musicActive = false;
 
-    // Функция создания капель дождя ночью, если дождь включен
-    function createRainDrop() {
-      if (isDay || !rainActive) return;
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let dotX = mouseX;
+  let dotY = mouseY;
 
-      const drop = document.createElement("div");
-      drop.className = "raindrop";
-      drop.style.left = Math.random() * 100 + "vw";
-      drop.style.animationDuration = (0.4 + Math.random() * 0.6) + "s";
+  let lastThemeChange = 0;
 
-      document.body.appendChild(drop);
-      setTimeout(() => drop.remove(), 2000);
+  // Device modal
+  const deviceModal = document.getElementById("device-modal");
+  function selectDevice(device) {
+    deviceModal.style.display = "none";
+
+    if (device === 'mobile') {
+      document.body.style.cursor = 'default';  // обычный курсор
+      cursorDot.style.display = 'none';
+    } else if (device === 'pc') {
+      document.body.style.cursor = 'none';  // скрыть системный курсор
+      cursorDot.style.display = 'block';   // показать кастомный
     }
-    setInterval(createRainDrop, 150);
+  }
 
-    // Функция для показа уведомления с текстом msg на 2.5 секунды
-    function showMessage(msg) {
-      cooldownMsg.textContent = msg;
-      cooldownMsg.classList.add("show");
-      setTimeout(() => cooldownMsg.classList.remove("show"), 2500);
-    }
+  // Animate custom cursor
+  document.addEventListener("mousemove", e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
-    // Обработчик кнопки разблокировки сайта
-    unlockBtn.addEventListener("click", () => {
-      if (input.value === password) {
-        content.style.display = "block";
-        passwordArea.style.display = "none";
-        welcomeText.style.display = "none";
-        input.value = "";
-        showMessage("Unlocked! This website is still building. xD");
-      } else {
-        alert("Incorrect Password!");
-      }
-    });
-
-    // Кнопка включения/выключения звука кликов
-    muteBtn.addEventListener("click", () => {
-      isMuted = !isMuted;
-      muteBtn.textContent = isMuted ? "🔇" : "🔊";
-
-      // Если звук выключен, выключаем музыку
-      if (isMuted && musicActive) {
-        musicActive = false;
-        musicToggle.style.color = "gray";
-        lofiAudio.pause();
-      }
-    });
-
-    // Вкл/выкл дождя с уведомлением
-    rainToggle.addEventListener("click", () => {
-      rainActive = !rainActive;
-      rainToggle.style.color = rainActive ? "white" : "gray";
-      showMessage(rainActive ? "Rain on" : "Rain off");
-    });
-
-    // Вкл/выкл ло-фи музыки — вместо включения аудио, перекидывает на рикролл
-    musicToggle.addEventListener("click", () => {
-      showMessage("Get rickrolled");
-      setTimeout(() => {
-        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-      }, 2000);
-    });
-
-    // Звук клика и эффект ripple + маленькие пиксели при клике
-    document.addEventListener("click", e => {
-      if (!isMuted) {
-        clickSound.currentTime = 0;
-        clickSound.play();
-      }
-
-      const ripple = document.createElement("div");
-      ripple.className = "ripple";
-      ripple.style.left = `${e.clientX}px`;
-      ripple.style.top = `${e.clientY}px`;
-      document.body.appendChild(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove());
-
-      for(let i=0; i<3; i++) {
-        const pixel = document.createElement("div");
-        pixel.className = "cursor-pixel";
-        pixel.style.left = `${e.clientX + (Math.random()*20 - 10)}px`;
-        pixel.style.top = `${e.clientY + (Math.random()*20 - 10)}px`;
-        pixel.style.background = `rgba(167,139,250,${0.5 + Math.random()*0.5})`;
-        document.body.appendChild(pixel);
-        pixel.addEventListener("animationend", () => pixel.remove());
-      }
-    });
-
-    // Отслеживание позиции мыши для плавного курсора
-    document.addEventListener("mousemove", e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    // Анимация плавного движения кастомного курсора
-    function animateCursor() {
-      const speed = 0.15;
-      dotX += (mouseX - dotX) * speed;
-      dotY += (mouseY - dotY) * speed;
-      cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+  function animateCursor() {
+    if (cursorDot.style.display === 'none') {
       requestAnimationFrame(animateCursor);
+      return;
     }
-    animateCursor();
+    const speed = 0.15;
+    dotX += (mouseX - dotX) * speed;
+    dotY += (mouseY - dotY) * speed;
+    cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
 
-    // Создание светлячков ночью
-    let fireflies = [];
-    function createFirefly() {
-      if (isDay) return;
+  // Rain drops (only night and if rain active)
+  function createRainDrop() {
+    if (isDay || !rainActive) return;
+
+    const drop = document.createElement("div");
+    drop.className = "raindrop";
+    drop.style.left = Math.random() * 100 + "vw";
+    drop.style.animationDuration = (0.4 + Math.random() * 0.6) + "s";
+
+    document.body.appendChild(drop);
+    setTimeout(() => drop.remove(), 2000);
+  }
+  setInterval(createRainDrop, 150);
+
+  // Fireflies at night
+  let fireflies = [];
+  function createFirefly() {
+    if (!isDay) {
       const firefly = document.createElement("div");
       firefly.className = "firefly";
       firefly.style.left = Math.random() * window.innerWidth + "px";
       firefly.style.top = Math.random() * window.innerHeight + "px";
-      firefly.style.animationDuration = 1 + Math.random() * 2 + "s";
+      firefly.style.animationDuration = (1 + Math.random() * 2) + "s";
       document.body.appendChild(firefly);
       fireflies.push(firefly);
       setTimeout(() => {
@@ -471,70 +495,121 @@
         fireflies = fireflies.filter(f => f !== firefly);
       }, 4000);
     }
-    setInterval(createFirefly, 400);
+  }
+  setInterval(createFirefly, 1200);
 
-    // Обработчик наведения мыши на луну с cooldown переключения темы
-    moon.addEventListener("mouseenter", () => {
-      const now = Date.now();
-      if (now - lastThemeChange < 3000) {
-        showMessage("Cooldown! Please wait 3 seconds before changing your theme again :)");
-        return;
-      }
-      lastThemeChange = now;
+  // Moon click toggle day/night with cooldown
+  moon.addEventListener("click", () => {
+    const now = Date.now();
+    if (now - lastThemeChange < 3000) {
+      showCooldown("Please wait 3 seconds before toggling again!");
+      return;
+    }
+    lastThemeChange = now;
+    toggleDayNight();
+    playClickSound();
+  });
 
-      isDay = !isDay;
-      if (isDay) {
-        document.body.style.background = "linear-gradient(to top, #ffecd2 0%, #fcb69f 100%)";
-        fireflies.forEach(f => f.remove());
-        fireflies = [];
-      } else {
-        document.body.style.background = "radial-gradient(circle at center, #1a1a2e, #16213e)";
-      }
-    });
-  </script>
-</body>
-</html>
-<!-- Construction Warning Modal -->
-<div id="warning-modal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 10002; font-family: 'Segoe UI', sans-serif;">
-  <div style="background: linear-gradient(145deg, #2a2a2a, #1f1f1f); border: 2px solid #ffcc00; padding: 35px 30px; border-radius: 18px; box-shadow: 0 0 30px rgba(255, 204, 0, 0.4); max-width: 90%; width: 400px; text-align: center; color: white; animation: alertPop 0.4s ease;">
-    <div style="font-size: 30px; font-weight: bold; margin-bottom: 12px; color: #ffcc00; text-shadow: 0 0 5px #ffcc00;">
-      ⚠️ Attention Required
-    </div>
-    <p style="font-size: 16px; color: #eee; margin-bottom: 30px; line-height: 1.5;">
-      This website is <span style="color: #ffcc00;">still under construction</span>. Some features may not work as expected.
-    </p>
-    <button id="ok-button" onclick="closeWarning()" style="padding: 12px 26px; background: #ffcc00; border: none; border-radius: 10px; color: black; font-weight: bold; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);">
-      OK
-    </button>
-    <div style="margin-top: 12px; font-size: 13px; color: #bbb;">Press <b>Enter</b> on PC</div>
-  </div>
-</div>
-
-<style>
-  @keyframes alertPop {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+  function toggleDayNight() {
+    isDay = !isDay;
+    if (isDay) {
+      document.body.style.background = "radial-gradient(circle at center, #f8f1e4, #f4d8a2)";
+      moon.style.background = "radial-gradient(circle, #ffffcc, #e5e0b7)";
+      moon.style.boxShadow = "0 0 15px rgba(255, 255, 200, 0.9)";
+      document.body.style.color = "#111";
+    } else {
+      document.body.style.background = "radial-gradient(circle at center, #1a1a2e, #16213e)";
+      moon.style.background = "radial-gradient(circle, #fff, #ccc)";
+      moon.style.boxShadow = "0 0 10px rgba(255,255,255,0.5)";
+      document.body.style.color = "white";
+    }
   }
 
-  #warning-modal button:hover {
-    background: #ffe680;
-    box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
-  }
-</style>
-
-<script>
-  function closeWarning() {
-    const modal = document.getElementById('warning-modal');
-    modal.style.display = 'none';
+  // Show cooldown message
+  function showCooldown(msg) {
+    cooldownMsg.textContent = msg;
+    cooldownMsg.classList.add("show");
+    setTimeout(() => {
+      cooldownMsg.classList.remove("show");
+    }, 2000);
   }
 
-  // Handle Enter key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const modal = document.getElementById('warning-modal');
-      if (modal && modal.style.display !== 'none') {
-        closeWarning();
-      }
+  // Click sound with mute toggle
+  function playClickSound() {
+    if (!isMuted) {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+  }
+
+  muteBtn.addEventListener("click", () => {
+    isMuted = !isMuted;
+    muteBtn.textContent = isMuted ? "🔇" : "🔊";
+    if (isMuted) {
+      lofiAudio.pause();
+    } else if (musicActive) {
+      lofiAudio.play();
     }
   });
+
+  // Rain toggle button
+  rainToggle.addEventListener("click", () => {
+    rainActive = !rainActive;
+    rainToggle.textContent = rainActive ? "🌧️" : "☀️";
+  });
+
+  // Music toggle button
+  musicToggle.addEventListener("click", () => {
+    musicActive = !musicActive;
+    musicToggle.textContent = musicActive ? "🔈" : "🎵";
+    if (musicActive && !isMuted) {
+      lofiAudio.play();
+    } else {
+      lofiAudio.pause();
+    }
+  });
+
+  // Password unlock
+  unlockBtn.addEventListener("click", () => {
+    const val = input.value.trim();
+    if (val === password) {
+      content.style.display = "block";
+      passwordArea.style.display = "none";
+      welcomeText.style.display = "none";
+      playClickSound();
+      showCooldown("Unlocked early access!");
+    } else {
+      showCooldown("Wrong password, try again.");
+    }
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") unlockBtn.click();
+  });
+
+  // Warning modal close
+  const warningModal = document.getElementById("warning-modal");
+  const okBtn = document.getElementById("ok-button");
+  function closeWarning() {
+    warningModal.style.display = "none";
+  }
+  okBtn.addEventListener("click", closeWarning);
+  document.addEventListener("keydown", e => {
+    if ((e.key === "Enter" || e.key === "Escape") && warningModal.style.display !== "none") {
+      closeWarning();
+    }
+  });
+
+  // Ripple effect on click
+  document.body.addEventListener("click", e => {
+    const ripple = document.createElement("span");
+    ripple.className = "ripple";
+    ripple.style.left = e.clientX + "px";
+    ripple.style.top = e.clientY + "px";
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+    playClickSound();
+  });
 </script>
+</body>
+</html>
