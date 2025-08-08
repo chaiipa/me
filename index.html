@@ -29,13 +29,13 @@
     const modal = document.getElementById("device-modal");
     modal.style.display = "none";
 
+    const cursorDot = document.getElementById('cursorDot');
+
     if (device === 'mobile') {
       document.body.style.cursor = 'none';
-      const cursorDot = document.getElementById('cursorDot');
       if (cursorDot) cursorDot.style.display = 'none';
-    } else {
-      document.body.style.cursor = 'default';
-      const cursorDot = document.getElementById('cursorDot');
+    } else if (device === 'pc') {
+      document.body.style.cursor = 'none'; // курсор становится невидимым
       if (cursorDot) cursorDot.style.display = 'block';
     }
   }
