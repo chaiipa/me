@@ -502,7 +502,7 @@
   moon.addEventListener("click", () => {
     const now = Date.now();
     if (now - lastThemeChange < 3000) {
-      showCooldown("Please wait 3 seconds before toggling again!");
+      showCooldown("Please wait 3 seconds before changing your theme again!");
       return;
     }
     lastThemeChange = now;
