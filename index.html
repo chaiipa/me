@@ -503,9 +503,10 @@
     <p style="font-size: 16px; color: #eee; margin-bottom: 30px; line-height: 1.5;">
       This website is <span style="color: #ffcc00;">still under construction</span>. Some features may not work as expected.
     </p>
-    <button onclick="closeWarning()" style="padding: 12px 26px; background: #ffcc00; border: none; border-radius: 10px; color: black; font-weight: bold; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);">
+    <button id="ok-button" onclick="closeWarning()" style="padding: 12px 26px; background: #ffcc00; border: none; border-radius: 10px; color: black; font-weight: bold; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);">
       OK
     </button>
+    <div style="margin-top: 12px; font-size: 13px; color: #bbb;">Press <b>Enter</b> on PC</div>
   </div>
 </div>
 
@@ -526,5 +527,14 @@
     const modal = document.getElementById('warning-modal');
     modal.style.display = 'none';
   }
-</script>
 
+  // Handle Enter key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const modal = document.getElementById('warning-modal');
+      if (modal && modal.style.display !== 'none') {
+        closeWarning();
+      }
+    }
+  });
+</script>
