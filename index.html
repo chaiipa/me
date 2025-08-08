@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <title>Nikoflx Portfolio</title>
   <style>
-    html, body {
+    body {
+      cursor: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -13,6 +14,7 @@
       color: white;
       height: 100vh;
       position: relative;
+      transition: background 0.8s ease;
     }
 
     .center-text {
@@ -22,7 +24,6 @@
       text-align: center;
       font-size: 2.5em;
       opacity: 0.8;
-      user-select: none;
     }
 
     #password-area {
@@ -31,16 +32,13 @@
       right: 20px;
       display: flex;
       gap: 8px;
-      z-index: 10;
+      z-index: 20;
     }
-
     #password-input {
       padding: 8px;
       border-radius: 8px;
       border: none;
-      font-size: 1em;
     }
-
     #unlock-button {
       padding: 8px 12px;
       border-radius: 8px;
@@ -48,67 +46,29 @@
       cursor: pointer;
       background: #0f3460;
       color: white;
-      font-size: 1em;
     }
 
-    #mute-button {
+    #controls {
       position: fixed;
       bottom: 20px;
       right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+    button.control-btn {
       padding: 6px 12px;
       border-radius: 8px;
       background: rgba(255,255,255,0.2);
       color: white;
       border: none;
       cursor: pointer;
-      z-index: 10;
-      font-size: 1.2em;
+      font-size: 18px;
       user-select: none;
+      transition: background 0.3s ease;
     }
-
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.4);
-      transform: scale(0);
-      animation: ripple-effect 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes ripple-effect {
-      to {
-        transform: scale(10);
-        opacity: 0;
-      }
-    }
-
-    #main-content {
-      display: none;
-      position: absolute;
-      top: 10%;
-      width: 100%;
-      text-align: center;
-      padding: 20px;
-      z-index: 5;
-    }
-
-    .section {
-      margin: 30px auto;
-      max-width: 600px;
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      user-select: none;
-    }
-
-    .section h2 {
-      margin-bottom: 10px;
-    }
-
-    a {
-      color: #4dd4ff;
-      text-decoration: none;
+    button.control-btn:hover {
+      background: rgba(255,255,255,0.4);
     }
 
     #moon {
@@ -119,10 +79,113 @@
       height: 40px;
       background: radial-gradient(circle, #fff, #ccc);
       border-radius: 50%;
-      z-index: 10;
+      z-index: 20;
       cursor: pointer;
       box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      transition: background 0.3s ease;
+    }
+    #moon:hover {
+      background: radial-gradient(circle, #ffe, #ccb);
+      box-shadow: 0 0 15px rgba(255,255,200,0.8);
+    }
+
+    #main-content {
+      display: none;
+      position: absolute;
+      top: 10%;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      z-index: 10;
+    }
+    .section {
+      margin: 30px auto;
+      max-width: 600px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+    .section h2 {
+      margin-bottom: 10px;
+    }
+    a {
+      color: #4dd4ff;
+      text-decoration: none;
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(0);
+      animation: ripple-effect 0.6s linear;
+      pointer-events: none;
+      z-index: 19;
+    }
+    @keyframes ripple-effect {
+      to {
+        transform: scale(10);
+        opacity: 0;
+      }
+    }
+
+    .firefly {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: #aaff66;
+      border-radius: 50%;
+      box-shadow:
+        0 0 8px 3px #aaff66,
+        0 0 15px 5px #aaff66;
+      animation: flicker 2s infinite alternate;
+      pointer-events: none;
+      z-index: 8;
+      opacity: 0.8;
+    }
+    @keyframes flicker {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+
+    .cursor-pixel {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #a78bfa;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.8;
+      z-index: 999;
+      animation: pixel-fall 2s forwards ease-out;
+    }
+    @keyframes pixel-fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      pointer-events: none;
       user-select: none;
+      z-index: 10000;
+      background: linear-gradient(270deg, #8a2be2, #00ffff, #8a2be2);
+      background-size: 600% 600%;
+      animation: gradientShift 8s ease infinite;
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+    }
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
     .raindrop {
@@ -132,74 +195,55 @@
       background: rgba(255,255,255,0.3);
       animation: fall 1s linear infinite;
       pointer-events: none;
+      z-index: 7;
     }
-
     @keyframes fall {
       0% { transform: translateY(-20px); opacity: 0; }
       100% { transform: translateY(100vh); opacity: 1; }
     }
 
-    /* Стиль для светлячков (живых) */
-    .firefly {
+    /* Стиль уведомления о cooldown и разблокировке */
+    #cooldown-msg {
       position: fixed;
-      width: 10px;
-      height: 10px;
-      background: radial-gradient(circle, #ffffa0 0%, #fffa70 40%, transparent 80%);
-      border-radius: 50%;
-      filter: drop-shadow(0 0 5px #ffffa0);
-      animation: flyaround 6s linear infinite, glow 2s ease-in-out infinite alternate;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(30, 30, 50, 0.9);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 20px;
+      font-size: 1.2em;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 9999;
       user-select: none;
     }
-
-    @keyframes glow {
-      0% { opacity: 0.3; filter: drop-shadow(0 0 2px #ffffa0); }
-      100% { opacity: 1; filter: drop-shadow(0 0 8px #ffffa0); }
-    }
-
-    @keyframes flyaround {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(20px, -10px); }
-      50% { transform: translate(40px, 15px); }
-      75% { transform: translate(20px, 30px); }
-      100% { transform: translate(0, 0); }
-    }
-
-    /* Частицы за мышкой */
-    .mouse-particle {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: radial-gradient(circle, #ffffcc 0%, #ffcc00 70%, transparent 100%);
-      border-radius: 50%;
-      pointer-events: none;
-      user-select: none;
+    #cooldown-msg.show {
       opacity: 1;
-      animation: fallParticle 2s forwards;
-      filter: drop-shadow(0 0 4px #ffcc00);
-      mix-blend-mode: screen;
-    }
-
-    @keyframes fallParticle {
-      to {
-        transform: translateY(60px) translateX(20px);
-        opacity: 0;
-      }
+      pointer-events: auto;
     }
   </style>
 </head>
 <body>
-  <div id="moon" title="Три клика — смена темы"></div>
+  <div id="moon" title="Наведи мышку сюда, чтобы переключить день/ночь"></div>
+
+  <div id="controls">
+    <button id="mute-button" class="control-btn" title="Вкл/Выкл звук">🔊</button>
+    <button id="rain-toggle" class="control-btn" title="Вкл/Выкл дождь">🌧️</button>
+    <button id="music-toggle" class="control-btn" title="Вкл/Выкл Lo-Fi музыку">🎵</button>
+  </div>
+
   <div class="center-text" id="welcome-text">Привет! Я Nikoflx</div>
 
   <div id="password-area">
-    <input type="password" id="password-input" placeholder="Введите пароль" autocomplete="off" />
+    <input type="password" id="password-input" placeholder="Введите пароль" />
     <button id="unlock-button">Unlock</button>
   </div>
 
-  <button id="mute-button" title="Вкл/выкл звук">🔊</button>
-
-  <div id="main-content" aria-live="polite" role="main">
+  <div id="main-content">
     <div class="section">
       <h2>Добро пожаловать на мой сайт!</h2>
       <p>Ты разблокировал секретный контент 🎉</p>
@@ -207,7 +251,7 @@
 
     <div class="section">
       <h2>🎵 Моя любимая музыка</h2>
-      <p><a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer">Мой Spotify плейлист</a></p>
+      <p><a href="https://open.spotify.com" target="_blank">Мой Spotify плейлист</a></p>
     </div>
 
     <div class="section">
@@ -217,7 +261,7 @@
 
     <div class="section">
       <h2>📱 Контакты</h2>
-      <p><a href="https://t.me/nikoflx" target="_blank" rel="noopener noreferrer">Telegram</a></p>
+      <p><a href="https://t.me/nikoflx">Telegram</a></p>
       <p><a href="mailto:nikoflx@email.com">Email</a></p>
     </div>
 
@@ -227,7 +271,16 @@
     </div>
   </div>
 
+  <!-- Аудио для кликов -->
   <audio id="click-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_bf7b2c1665.mp3" preload="auto"></audio>
+  <!-- Lo-fi музыка -->
+  <audio id="lofi-audio" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2021/09/23/audio_62440d4209.mp3?filename=lofi-hip-hop-beat-140bpm-8826.mp3"></audio>
+
+  <!-- Кастомный курсор -->
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- Уведомление cooldown и разблокировки -->
+  <div id="cooldown-msg"></div>
 
   <script>
     const password = "8896";
@@ -239,122 +292,162 @@
     const clickSound = document.getElementById("click-sound");
     const muteBtn = document.getElementById("mute-button");
     const moon = document.getElementById("moon");
+    const cursorDot = document.getElementById("cursorDot");
+    const rainToggle = document.getElementById("rain-toggle");
+    const musicToggle = document.getElementById("music-toggle");
+    const lofiAudio = document.getElementById("lofi-audio");
+    const cooldownMsg = document.getElementById("cooldown-msg");
+
     let isMuted = false;
-    let clickCount = 0;
     let isDay = false;
-    let rainInterval;
+    let rainActive = true; // дождь включен ночью по умолчанию
+    let musicActive = false; // ло-фи музыка изначально выключена
 
-    // Создаёт капли дождя
-    function createRain() {
-      for (let i = 0; i < 50; i++) {
-        const drop = document.createElement("div");
-        drop.className = "raindrop";
-        drop.style.left = Math.random() * 100 + "vw";
-        drop.style.animationDuration = (0.5 + Math.random()) + "s";
-        document.body.appendChild(drop);
-        setTimeout(() => drop.remove(), 2000);
-      }
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let dotX = mouseX;
+    let dotY = mouseY;
+
+    let lastThemeChange = 0; // время последнего переключения темы
+
+    // Функция создания капель дождя ночью, если дождь включен
+    function createRainDrop() {
+      if (isDay || !rainActive) return;
+
+      const drop = document.createElement("div");
+      drop.className = "raindrop";
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.animationDuration = (0.4 + Math.random() * 0.6) + "s";
+
+      document.body.appendChild(drop);
+      setTimeout(() => drop.remove(), 2000);
+    }
+    setInterval(createRainDrop, 150);
+
+    // Функция для показа уведомления с текстом msg на 2.5 секунды
+    function showMessage(msg) {
+      cooldownMsg.textContent = msg;
+      cooldownMsg.classList.add("show");
+      setTimeout(() => cooldownMsg.classList.remove("show"), 2500);
     }
 
-    // Добавляет светлячков ночью
-    function addFireflies() {
-      for (let i = 0; i < 20; i++) {
-        const firefly = document.createElement("div");
-        firefly.className = "firefly";
-        firefly.style.top = Math.random() * 80 + "vh";
-        firefly.style.left = Math.random() * 100 + "vw";
-        firefly.style.animationDuration = (4 + Math.random() * 4) + "s"; // разная длительность анимации
-        firefly.style.animationDelay = (Math.random() * 4) + "s"; // случайная задержка
-        document.body.appendChild(firefly);
-      }
-    }
-
-    // Удаляет все светлячки
-    function removeFireflies() {
-      document.querySelectorAll(".firefly").forEach(f => f.remove());
-    }
-
-    // Удаляет все капли дождя
-    function removeRain() {
-      document.querySelectorAll(".raindrop").forEach(d => d.remove());
-      clearInterval(rainInterval);
-    }
-
-    // Запускает дождь
-    function startRain() {
-      rainInterval = setInterval(createRain, 400);
-    }
-
-    // Переключение день/ночь по кликам на луну
-    moon.addEventListener("click", () => {
-      clickCount++;
-      if (clickCount >= 3) {
-        isDay = !isDay;
-        if (isDay) {
-          // День: светлый фон, убираем дождь и светлячков
-          document.body.style.background = "linear-gradient(to top, #ffecd2 0%, #fcb69f 100%)";
-          removeRain();
-          removeFireflies();
-        } else {
-          // Ночь: темный фон, запускаем дождь и светлячков
-          document.body.style.background = "radial-gradient(circle at center, #1a1a2e, #16213e)";
-          startRain();
-          addFireflies();
-        }
-        clickCount = 0;
-      }
-    });
-
-    // Разблокировка сайта по паролю
+    // Обработчик кнопки разблокировки сайта
     unlockBtn.addEventListener("click", () => {
       if (input.value === password) {
         content.style.display = "block";
         passwordArea.style.display = "none";
         welcomeText.style.display = "none";
         input.value = "";
+        showMessage("Unlocked! This website is still building. xD");
       } else {
         alert("Неправильный пароль!");
       }
     });
 
-    // Переключатель звука клика
+    // Кнопка включения/выключения звука кликов
     muteBtn.addEventListener("click", () => {
       isMuted = !isMuted;
       muteBtn.textContent = isMuted ? "🔇" : "🔊";
-    });
 
-    // Эффект клика: звук и всплеск, срабатывает только если клик на body (чтобы не мешать кнопкам)
-    document.body.addEventListener("click", function(e) {
-      if (e.target === document.body) {
-        if (!isMuted) {
-          clickSound.currentTime = 0;
-          clickSound.play().catch(() => {});
-        }
-        const ripple = document.createElement("div");
-        ripple.className = "ripple";
-        ripple.style.left = `${e.clientX}px`;
-        ripple.style.top = `${e.clientY}px`;
-        document.body.appendChild(ripple);
-        ripple.addEventListener("animationend", () => ripple.remove());
+      // Если звук выключен, выключаем музыку
+      if (isMuted && musicActive) {
+        musicActive = false;
+        musicToggle.style.color = "gray";
+        lofiAudio.pause();
       }
     });
 
-    // Частицы за мышкой (живые пиксели)
-    document.addEventListener("mousemove", (e) => {
-      const particle = document.createElement("div");
-      particle.className = "mouse-particle";
-      particle.style.left = (e.clientX + (Math.random() * 10 - 5)) + "px";
-      particle.style.top = (e.clientY + (Math.random() * 10 - 5)) + "px";
-      document.body.appendChild(particle);
-      // Удаляем частицу через 2 секунды (длина анимации)
-      setTimeout(() => particle.remove(), 2000);
+    // Вкл/выкл дождя с уведомлением
+    rainToggle.addEventListener("click", () => {
+      rainActive = !rainActive;
+      rainToggle.style.color = rainActive ? "white" : "gray";
+      showMessage(rainActive ? "Rain on" : "Rain off");
     });
 
-    // При загрузке страницы устанавливаем ночь (по умолчанию) и запускаем дождь и светлячков
-    document.addEventListener("DOMContentLoaded", () => {
-      document.body.style.background = "radial-gradient(circle at center, #1a1a2e, #16213e)";
-      startRain();
-      addFireflies();
+    // Вкл/выкл ло-фи музыки — вместо включения аудио, перекидывает на рикролл
+    musicToggle.addEventListener("click", () => {
+      showMessage("Get rickrolled");
+      setTimeout(() => {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      }, 2000);
+    });
+
+    // Звук клика и эффект ripple + маленькие пиксели при клике
+    document.addEventListener("click", e => {
+      if (!isMuted) {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      }
+
+      const ripple = document.createElement("div");
+      ripple.className = "ripple";
+      ripple.style.left = `${e.clientX}px`;
+      ripple.style.top = `${e.clientY}px`;
+      document.body.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove());
+
+      for(let i=0; i<3; i++) {
+        const pixel = document.createElement("div");
+        pixel.className = "cursor-pixel";
+        pixel.style.left = `${e.clientX + (Math.random()*20 - 10)}px`;
+        pixel.style.top = `${e.clientY + (Math.random()*20 - 10)}px`;
+        pixel.style.background = `rgba(167,139,250,${0.5 + Math.random()*0.5})`;
+        document.body.appendChild(pixel);
+        pixel.addEventListener("animationend", () => pixel.remove());
+      }
+    });
+
+    // Отслеживание позиции мыши для плавного курсора
+    document.addEventListener("mousemove", e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Анимация плавного движения кастомного курсора
+    function animateCursor() {
+      const speed = 0.15;
+      dotX += (mouseX - dotX) * speed;
+      dotY += (mouseY - dotY) * speed;
+      cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Создание светлячков ночью
+    let fireflies = [];
+    function createFirefly() {
+      if (isDay) return;
+      const firefly = document.createElement("div");
+      firefly.className = "firefly";
+      firefly.style.left = Math.random() * window.innerWidth + "px";
+      firefly.style.top = Math.random() * window.innerHeight + "px";
+      firefly.style.animationDuration = 1 + Math.random() * 2 + "s";
+      document.body.appendChild(firefly);
+      fireflies.push(firefly);
+      setTimeout(() => {
+        firefly.remove();
+        fireflies = fireflies.filter(f => f !== firefly);
+      }, 4000);
+    }
+    setInterval(createFirefly, 400);
+
+    // Обработчик наведения мыши на луну с cooldown переключения темы
+    moon.addEventListener("mouseenter", () => {
+      const now = Date.now();
+      if (now - lastThemeChange < 3000) {
+        showMessage("Cooldown! Please wait 3 seconds before changing your theme again :)");
+        return;
+      }
+      lastThemeChange = now;
+
+      isDay = !isDay;
+      if (isDay) {
+        document.body.style.background = "linear-gradient(to top, #ffecd2 0%, #fcb69f 100%)";
+        fireflies.forEach(f => f.remove());
+        fireflies = [];
+      } else {
+        document.body.style.background = "radial-gradient(circle at center, #1a1a2e, #16213e)";
+      }
     });
   </script>
 </body>
