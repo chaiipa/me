@@ -477,7 +477,7 @@
     document.body.appendChild(drop);
     setTimeout(() => drop.remove(), 2000);
   }
-  setInterval(createRainDrop, 150);
+  setInterval(createRainDrop, 250);
 
   // Fireflies at night
   let fireflies = [];
@@ -496,7 +496,7 @@
       }, 4000);
     }
   }
-  setInterval(createFirefly, 1200);
+  setInterval(createFirefly, 350);
 
   // Moon click toggle day/night with cooldown
   moon.addEventListener("click", () => {
