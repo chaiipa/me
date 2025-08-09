@@ -553,10 +553,12 @@
   });
 
   // Rain toggle button
-  rainToggle.addEventListener("click", () => {
-    rainActive = !rainActive;
-    rainToggle.textContent = rainActive ? "🌧️" : "☀️";
-  });
+ rainToggle.addEventListener("click", () => {
+  rainActive = !rainActive;
+  rainToggle.textContent = rainActive ? "🌧️" : "☀️";
+  showCooldown(rainActive ? "Rain on" : "Rain off");
+});
+
 
   // Music toggle button
   musicToggle.addEventListener("click", () => {
