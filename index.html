@@ -326,6 +326,16 @@
 </head>
 <body>
 
+<!-- Device Selection Modal -->
+<div id="device-modal">
+  <div>
+    <h2>Choose your device</h2>
+    <p>Choose your device for better experience :)</p>
+    <button onclick="selectDevice('pc')">🖥️ PC</button>
+    <button onclick="selectDevice('mobile')">📱 Phone / Tablet</button>
+  </div>
+</div>
+
 <!-- Warning Modal -->
 <div id="warning-modal">
   <div>
@@ -450,7 +460,7 @@
     const speed = 0.15;
     dotX += (mouseX - dotX) * speed;
     dotY += (mouseY - dotY) * speed;
-    cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+    cursorDot.style.transform = translate(${dotX}px, ${dotY}px) translate(-50%, -50%);
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
@@ -543,12 +553,10 @@
   });
 
   // Rain toggle button
- rainToggle.addEventListener("click", () => {
-  rainActive = !rainActive;
-  rainToggle.textContent = rainActive ? "🌧️" : "☀️";
-  showCooldown(rainActive ? "Rain on" : "Rain off");
-});
-
+  rainToggle.addEventListener("click", () => {
+    rainActive = !rainActive;
+    rainToggle.textContent = rainActive ? "🌧️" : "☀️";
+  });
 
   // Music toggle button
   musicToggle.addEventListener("click", () => {
