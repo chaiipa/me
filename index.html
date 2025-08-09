@@ -460,7 +460,7 @@
     const speed = 0.15;
     dotX += (mouseX - dotX) * speed;
     dotY += (mouseY - dotY) * speed;
-    cursorDot.style.transform = translate(${dotX}px, ${dotY}px) translate(-50%, -50%);
+    cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
