@@ -564,8 +564,13 @@
   musicToggle.addEventListener("click", () => {
     musicActive = !musicActive;
     musicToggle.textContent = musicActive ? "🔈" : "🎵";
- showCooldown(rainActive ? "Soon! :) " : "Soon! :));
-});
+    if (musicActive && !isMuted) {
+      lofiAudio.play();
+    } else {
+      lofiAudio.pause();
+    }
+  });
+
   // Password unlock
   unlockBtn.addEventListener("click", () => {
     const val = input.value.trim();
@@ -574,7 +579,7 @@
       passwordArea.style.display = "none";
       welcomeText.style.display = "none";
       playClickSound();
-      showCooldown("Unlocked! This website is still building! xD);
+      showCooldown("Unlocked early access!");
     } else {
       showCooldown("Wrong password, try again.");
     }
@@ -610,4 +615,3 @@
 </script>
 </body>
 </html>
-
